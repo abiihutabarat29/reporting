@@ -1,0 +1,152 @@
+kecamatan_id;kode_wilayah;name
+1;1219011001;Pangkalan Dodek
+1;1219011002;Pangkalan Dodek Baru
+1;1219011021;Pagurawan
+1;1219012003;Aek Nauli
+1;1219012004;Durian
+1;1219012005;Lalang
+1;1219012006;Medang
+1;1219012007;Pakam
+1;1219012008;Pakam Raya
+1;1219012009;Pematang Cengkering
+1;1219012010;Sei Buah Keras
+1;1219012011;Sei Rakyat
+1;1219012012;Sidomulyo
+1;1219012013;Tanjung Sigoni
+1;1219012014;Nenas Siam
+1;1219012015;Pakam Raya Selatan
+1;1219012016;Mandarsah
+1;1219012017;Medang Baru
+1;1219012018;Pematang Nibung
+1;1219012019;Cengkering Pekan
+1;1219012020;Sei Raja
+2;1219021001;Perkebunan Sipare Pare
+2;1219022007;Sei Suka Deras
+2;1219022008;Simodong
+2;1219022009;Pematang Jering
+2;1219022010;Pematang Kuning
+2;1219022011;Kuala Indah
+2;1219022012;Kuala Tanjung
+2;1219022018;Tanjunggading
+2;1219022019;Simpang Kopi
+2;1219022020;Brohol
+3;1219031001;Indrapura
+3;1219031019;Indrasakti
+3;1219032002;Limau Sundai
+3;1219032003;Pematang Panjang
+3;1219032004;Sukaraja
+3;1219032005;Tanah Tinggi
+3;1219032006;Tanjungmuda
+3;1219032007;Tanah Merah
+3;1219032008;Aras
+3;1219032009;Pasar Lapan
+3;1219032010;Sipare-pare
+3;1219032011;Tanjungkubah
+3;1219032012;Tanjungharapan
+3;1219032013;Suka Ramai
+3;1219032014;Tanah Rendah
+3;1219032015;Tanjungmulya
+3;1219032016;Titi Payung
+3;1219032017;Perkotaan
+3;1219032018;Kampung Kelapa
+4;1219041001;Lima Puluh Kota
+4;1219042011;Mangkai Baru
+4;1219042012;Mangkai Lama
+4;1219042014;Perkebunan Dolok
+4;1219042015;Perk. Kw. Gunung
+4;1219042016;Antara
+4;1219042017;Perk. Lima Puluh
+4;1219042018;Perk. Limau Manis
+4;1219042019;Perk. Tanah Gambus
+4;1219042025;Simpang Gambus
+4;1219042026;Sumber Makmur
+4;1219042027;Sumber Padi
+5;1219051001;Labuhan Ruku
+5;1219052004;Dahari Silebar
+5;1219052006;Mesjid Lama
+5;1219052007;Padang Genting
+5;1219052008;Pahang
+5;1219052009;Panjang
+5;1219052014;Gunungrante
+5;1219052015;Dahari Indah
+5;1219052016;Indra Yaman
+5;1219052017;Benteng
+6;1219061001;Tanjungtiram
+6;1219061022;Bagan Arya
+6;1219062002;Guntung
+6;1219062004;Bagan Dalam
+6;1219062005;Bogak
+6;1219062006;Suka Maju
+6;1219062016;Suka Jaya
+6;1219062017;Pahlawan
+6;1219062018;Bandar Rahmat
+6;1219062019;Kampung Lalang
+7;1219072001;Kwala Sikasim
+7;1219072002;Sei Balai
+7;1219072004;Durian
+7;1219072005;Perkebunan Sei Balai
+7;1219072007;Suka Ramai
+7;1219072008;Sei Bejangkar
+7;1219072009;Mekar Mulio
+7;1219072010;Perkebunan Sei Bejangkar
+7;1219072012;Benteng Jaya
+7;1219072013;Tanah Timbul
+7;1219072014;Perjuangan
+7;1219072015;Sidomulio
+7;1219072016;Mekar Baru
+7;1219072017;Suko Rejo
+8;1219082001;Tanjung Parapat
+8;1219082002;Laut Tador
+8;1219082003;Pelanggiran Laut Tador
+8;1219082004;Perkebunan Tanjung Kasau
+8;1219082005;Dewi Sri
+8;1219082006;Tanjung Kasau
+8;1219082007;Tanjung Seri
+8;1219082008;Mekar Sari
+8;1219082009;Sei Simujur
+8;1219082010;Kandangan
+9;1219092001;Gambus Laut
+9;1219092002;Perupuk
+9;1219092003;Guntung
+9;1219092004;Barung-Barung
+9;1219092005;Titi Putih
+9;1219092006;Pasir Permit
+9;1219092007;Titi Merah
+9;1219092008;Pematang Panjang
+9;1219092009;Bulan-Bulan
+9;1219092010;Gunung Bandung
+9;1219092011;Lubuk Cuik
+9;1219092012;Tanah Itam Ilir
+9;1219092013;Pematang Tengah
+10;1219102001;Perkebunan Tanah Itam Ulu
+10;1219102002;Empat Negeri
+10;1219102003;Sumber Rejo
+10;1219102004;Lubuk Hulu
+10;1219102005;Lubuk Besar
+10;1219102006;Pulau Sejuk
+10;1219102007;Simpang Dolok
+10;1219102008;Air Hitam
+10;1219102009;Kwala Gunung
+10;1219102010;Cahaya Pardomuan
+11;1219112001;Sumber Tani
+11;1219112002;Sei Muka
+11;1219112003;Perkebunan Tanah Datar
+11;1219112004;Binjai Baru
+11;1219112005;Bangun Sari
+11;1219112006;Karang Baru
+11;1219112007;Perkebunan Petatal
+11;1219112008;Mekar Baru
+11;1219112009;Petatal
+11;1219112010;Glugur Makmur
+12;1219122001;Sentang
+12;1219122002;Tanjung Mulia
+12;1219122003;Jati Mulia
+12;1219122004;Lima Laras
+12;1219122005;Mekar Laras
+12;1219122006;Bandar Sono
+12;1219122007;Ujung Kubu
+12;1219122008;Sei Mentaram
+12;1219122009;Pematang Rambe
+12;1219122010;Tali Air Permai
+12;1219122011;Bagan Baru
+12;1219122012;Kapal Merah

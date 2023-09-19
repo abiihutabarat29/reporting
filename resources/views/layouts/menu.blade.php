@@ -52,22 +52,17 @@
                 <x-menuDropdown icon="fa fa-file" label="Master Data"
                     active="{{ request()->segment(1) == 'kecamatan' ||
                     request()->segment(1) == 'desa' ||
-                    request()->segment(1) == 'user-kecamatan' ||
                     request()->segment(1) == 'bidang' ||
                     request()->segment(1) == 'program-kerja' ||
                     request()->segment(1) == 'kegiatan' ||
-                    request()->segment(1) == 'user-desa'
+                    request()->segment(1) == 'user'
                         ? 'active'
                         : '' }}">
                     <x-linkDropdown link="{{ route('kecamatan.index') }}" label="Kecamatan" active="kecamatan">
                     </x-linkDropdown>
                     <x-linkDropdown link="{{ route('desa.index') }}" label="Desa/Kelurahan" active="desa">
                     </x-linkDropdown>
-                    <x-linkDropdown link="{{ route('user-kecamatan.index') }}" label="User Kecamatan"
-                        active="user-kecamatan">
-                    </x-linkDropdown>
-                    <x-linkDropdown link="{{ route('user-desa.index') }}" label="User Desa/Kelurahan"
-                        active="user-desa">
+                    <x-linkDropdown link="{{ route('user.index') }}" label="User" active="user">
                     </x-linkDropdown>
                     <x-linkDropdown link="{{ route('bidang.index') }}" label="Data Bidang" active="bidang">
                     </x-linkDropdown>

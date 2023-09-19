@@ -7,8 +7,7 @@ use App\Http\Controllers\DesaController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\ProgramController;
-use App\Http\Controllers\UserDesaController;
-use App\Http\Controllers\UserKecController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,8 +37,7 @@ Route::group(['middleware' => ['role:1']], function () {
     Route::resource('kecamatan', KecamatanController::class);
     Route::resource('desa', DesaController::class);
     Route::post('desa/get-desa', [DesaController::class, 'getDesa']);
-    Route::resource('user-kecamatan', UserKecController::class);
-    Route::resource('user-desa', UserDesaController::class);
+    Route::resource('user', UserController::class);
     Route::resource('bidang', BidangController::class);
     Route::resource('program-kerja', ProgramController::class);
     Route::resource('kegiatan', KegiatanController::class);
