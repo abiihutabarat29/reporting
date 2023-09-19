@@ -22,23 +22,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::controller(LoginController::class)->group(function () {
-    // Login
-    Route::get('/', 'index')->name('index')->middleware('guest');
-    Route::post('/', 'login')->name('login');
-    Route::get('logout', 'logout')->name('logout');
+Route::view('/', 'auth.login')->name('login');
+Auth::routes([
+    'register' => false, // Register Routes...
+    'reset' => false, // Reset Password Routes...
+    'verify' => false, // Email Verification Routes...
+]);
+
+
+Route::group(['middleware' => ['role:1,2,3']], function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
-Route::group(['middleware' => ['auth:admin,admkec,admdesa']], function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::group(['middleware' => ['role:1']], function () {
-        Route::resource('kecamatan', KecamatanController::class);
-        Route::resource('desa', DesaController::class);
-        Route::post('desa/get-desa', [DesaController::class, 'getDesa']);
-        Route::resource('user-kecamatan', UserKecController::class);
-        Route::resource('user-desa', UserDesaController::class);
-        Route::resource('bidang', BidangController::class);
-        Route::resource('program-kerja', ProgramController::class);
-        Route::resource('kegiatan', KegiatanController::class);
-    });
+Route::group(['middleware' => ['role:1']], function () {
+    Route::resource('kecamatan', KecamatanController::class);
+    Route::resource('desa', DesaController::class);
+    Route::post('desa/get-desa', [DesaController::class, 'getDesa']);
+    Route::resource('user-kecamatan', UserKecController::class);
+    Route::resource('user-desa', UserDesaController::class);
+    Route::resource('bidang', BidangController::class);
+    Route::resource('program-kerja', ProgramController::class);
+    Route::resource('kegiatan', KegiatanController::class);
 });
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

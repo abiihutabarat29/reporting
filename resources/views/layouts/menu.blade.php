@@ -17,7 +17,15 @@
                 <ul class="dropdown-menu animated fadeInLeft">
                     <li class="arrow"></li>
                     <li><a href="#">Profile</a></li>
-                    <li><a href="{{ route('logout') }}">Logout</a>
+                    <li>
+                        <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger"
+                            onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                            <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                     </li>
                 </ul>
             </li>

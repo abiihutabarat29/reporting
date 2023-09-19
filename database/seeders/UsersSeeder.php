@@ -13,12 +13,39 @@ class UsersSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'name'    => "Administrator",
-            'email'    => 'admin@gmail.com',
-            'password'    => bcrypt('admin123'),
-            'role' => "1",
-            'foto' => "",
-        ]);
+        $data = [
+            [
+                'kecamatan_id'    => null,
+                'desa_id'    => null,
+                'name'    => "Administrator",
+                'email'    => 'admin@gmail.com',
+                'nohp'    => null,
+                'password'    => bcrypt('admin123'),
+                'role' => "1",
+                'foto' => "",
+            ],
+            [
+                'kecamatan_id'    => 1,
+                'desa_id'    => null,
+                'name'    => "Administrator Kecamatan",
+                'email'    => 'adminkecamatan@gmail.com',
+                'nohp'    => '123456789102',
+                'password'    => bcrypt('admin123'),
+                'role' => "2",
+                'foto' => "",
+            ],
+            [
+                'kecamatan_id'    => 1,
+                'desa_id'    => 1,
+                'name'    => "Administrator Desa",
+                'email'    => 'admindesa@gmail.com',
+                'nohp'    => '123456789102',
+                'password'    => bcrypt('admin123'),
+                'role' => "3",
+                'foto' => "",
+            ]
+        ];
+
+        User::insert($data);
     }
 }
