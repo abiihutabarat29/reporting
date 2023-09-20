@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Program extends Model
 {
     use HasFactory;
+    protected $table = "program_kerja";
+
+    protected $fillable = [
+        'bidang_id', 'name'
+    ];
+    public function bidang()
+    {
+        return $this->belongsTo(Bidang::class);
+    }
 }

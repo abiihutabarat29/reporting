@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Administrator | Dashboard</title>
-    <link rel="icon" href="{{ asset('assets/icon/icon.png') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('assets/icon.png') }}" type="image/x-icon" />
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
