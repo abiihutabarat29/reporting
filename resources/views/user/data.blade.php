@@ -4,13 +4,13 @@
     <x-datatable link="javascript:void(0)" submenu="{{ $submenu }}" label="Tambah">
         <th style="width:5%">No</th>
         <th style="width:5%">Foto</th>
-        <th style="width:25%">Nama</th>
+        <th>Nama</th>
         <th style="width:18%">Email</th>
         <th style="width:10%">No. HP</th>
         <th style="width:15%">Kecamatan</th>
         <th style="width:15%">Desa/Kelurahan</th>
         <th class="text-center" style="width:10%">Level</th>
-        <th class="text-center" style="width: 15%">Action</th>
+        <th class="text-center" style="width: 8%">Action</th>
     </x-datatable>
 @endsection
 @section('modal')

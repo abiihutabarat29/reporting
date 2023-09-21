@@ -5,6 +5,13 @@ function alertToastr(message) {
     });
     return false
 }
+function alertToastrErr(message) {
+    $.gritter.add({
+        title: "Maaf!",
+        text: message
+    });
+    return false
+}
 
 function alertDanger(message) {
     $("#alerts").html(

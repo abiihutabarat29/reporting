@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,9 @@ Auth::routes([
 
 Route::group(['middleware' => ['role:1,2,3']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/profil', [ProfilController::class, 'index'])->name('profil');
+    Route::put('profil/{id}/update-foto', [ProfilController::class, 'updatefoto'])->name('profil.update.foto');
+    Route::put('profil/{id}/update-password', [ProfilController::class, 'updatepassword'])->name('profil.update.password');
 });
 
 Route::group(['middleware' => ['role:1']], function () {

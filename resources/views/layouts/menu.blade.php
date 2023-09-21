@@ -16,7 +16,7 @@
                 </a>
                 <ul class="dropdown-menu animated fadeInLeft">
                     <li class="arrow"></li>
-                    <li><a href="#">Profile</a></li>
+                    <li><a href="{{ route('profil') }}">Profile</a></li>
                     <li>
                         <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger"
                             onclick="event.preventDefault();

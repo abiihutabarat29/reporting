@@ -22,7 +22,7 @@
                 <div class="stats-icon"><i class="fa fa-users"></i></div>
                 <div class="stats-info">
                     <h4>USER KECAMATAN</h4>
-                    <p>0</p>
+                    <p>{{ $userskec }}</p>
                 </div>
                 <div class="stats-link">
                     <a href="javascript:;">Lihat Selengkapnya <i class="fa fa-arrow-circle-o-right"></i></a>
@@ -34,7 +34,7 @@
                 <div class="stats-icon"><i class="fa fa-users"></i></div>
                 <div class="stats-info">
                     <h4>USER DESA/KELURAHAN</h4>
-                    <p>0</p>
+                    <p>{{ $usersdesa }}</p>
                 </div>
                 <div class="stats-link">
                     <a href="javascript:;">Lihat Selengkapnya <i class="fa fa-arrow-circle-o-right"></i></a>
@@ -46,7 +46,7 @@
                 <div class="stats-icon"><i class="fa fa-th-large"></i></div>
                 <div class="stats-info">
                     <h4>TOTAL BIDANG</h4>
-                    <p>0</p>
+                    <p>{{ $bidang }}</p>
                 </div>
                 <div class="stats-link">
                     <a href="javascript:;">Lihat Selengkapnya <i class="fa fa-arrow-circle-o-right"></i></a>

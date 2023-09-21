@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kecamatan;
+use App\Models\ProfilUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -53,8 +54,8 @@ class UserController extends Controller
                     return $role;
                 })
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="javascript:void(0)"  data-id="' . $row->id . '" class="edit btn btn-primary btn-xs"><i class="fa fa-edit"></i> Edit</a>';
-                    $btn = '<center>' . $btn . ' <a href="javascript:void(0)"  data-id="' . $row->id . '"class="btn btn-danger btn-xs delete"><i class="fa fa-trash"></i> Hapus</a><center>';
+                    $btn = '<a href="javascript:void(0)"  data-id="' . $row->id . '" class="edit btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>';
+                    $btn = '<center>' . $btn . ' <a href="javascript:void(0)"  data-id="' . $row->id . '"class="btn btn-danger btn-xs delete"><i class="fa fa-trash"></i></a><center>';
                     return $btn;
                 })
                 ->rawColumns(['foto', 'role', 'action'])
@@ -166,7 +167,7 @@ class UserController extends Controller
             $password = null;
         }
 
-        User::updateOrCreate(
+        $usersid = User::updateOrCreate(
             [
                 'id' => $request->hidden_id
             ],
@@ -181,8 +182,16 @@ class UserController extends Controller
                 'foto'      => $fileFoto,
             ]
         );
+        ProfilUser::updateOrCreate(
+            [
+                'id' => $request->user_id
+            ],
+            [
+                'user_id' => $usersid->id,
+            ]
+        );
 
-        return response()->json(['success' => 'User Desa/Kelurahan saved successfully.']);
+        return response()->json(['success' => 'Operator saved successfully.']);
     }
     public function edit($id)
     {
@@ -197,6 +206,6 @@ class UserController extends Controller
             Storage::delete('public/foto-users/' . $data->foto);
         }
         $data->delete();
-        return response()->json(['success' => 'User Desa/Kelurahan deleted successfully.']);
+        return response()->json(['success' => 'Operator deleted successfully.']);
     }
 }

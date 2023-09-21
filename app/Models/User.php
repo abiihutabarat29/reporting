@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Desa::class);
     }
+
+    public function profil()
+    {
+        return $this->hasOne(ProfilUser::class);
+    }
 }
