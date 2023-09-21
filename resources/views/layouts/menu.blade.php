@@ -11,7 +11,11 @@
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown navbar-user">
                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="assets/img/blank.jpg" alt="" />
+                    @if (Auth::user()->foto == null)
+                        <img src="{{ url('assets/img/blank.jpg') }}">
+                    @else
+                        <img src="{{ url('storage/foto-users/' . Auth::user()->foto) }}">
+                    @endif
                     <span class="hidden-xs">{{ Auth::user()->name }}</span> <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu animated fadeInLeft">
@@ -37,7 +41,13 @@
         <ul class="nav">
             <li class="nav-profile">
                 <div class="image">
-                    <a href="javascript:;"><img src="assets/img/blank.jpg" alt="" /></a>
+                    <a href="{{ route('profil') }}">
+                        @if (Auth::user()->foto == null)
+                            <img src="{{ url('assets/img/blank.jpg') }}">
+                        @else
+                            <img src="{{ url('storage/foto-users/' . Auth::user()->foto) }}">
+                        @endif
+                    </a>
                 </div>
                 <div class="info">
                     {{ Auth::user()->name }}

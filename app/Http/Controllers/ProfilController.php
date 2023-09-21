@@ -36,11 +36,12 @@ class ProfilController extends Controller
         }
         $img = $request->file('foto');
         if ($img != null) {
-            $img->storeAs('public/foto-users/', $img->hashName());
+            $fileFoto = time() . '-' . $img->getClientOriginalName();
+            $img->storeAs('public/foto-users', $fileFoto);
             Storage::delete('public/foto-users/' . $user->foto);
         }
         $user->update([
-            'foto' => $img->hashName(),
+            'foto' => $fileFoto,
         ]);
         return response()->json(['success' => 'Foto updated successfully.']);
     }

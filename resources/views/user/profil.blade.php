@@ -63,6 +63,61 @@
                                     </tr>
                                 @else
                                     <tr class="highlight">
+                                        <td class="field">Organisasi</td>
+                                        @if ($user->nama_pkk == null)
+                                            <td><span class="text-danger"><i>* tidak ada</i></span></td>
+                                        @else
+                                            <td>{{ $user->nama_pkk }}</td>
+                                        @endif
+                                    </tr>
+                                    <tr class="divider">
+                                        <td colspan="2"></td>
+                                    </tr>
+                                    <tr class="highlight">
+                                        <td class="field">HP Kantor</td>
+                                        @if ($user->nohp_kantor == null)
+                                            <td><span class="text-danger"><i>* tidak ada</i></span></td>
+                                        @else
+                                            <td>{{ $user->nohp_kantor }}</td>
+                                        @endif
+                                    </tr>
+                                    <tr class="divider">
+                                        <td colspan="2"></td>
+                                    </tr>
+                                    <tr class="highlight">
+                                        <td class="field">Alamat Kantor</td>
+                                        @if ($user->alamat_kantor == null)
+                                            <td><span class="text-danger"><i>* tidak ada</i></span></td>
+                                        @else
+                                            <td>{{ $user->alamat_kantor }}</td>
+                                        @endif
+                                    </tr>
+                                    <tr class="divider">
+                                        <td colspan="2"></td>
+                                    </tr>
+                                    <tr class="highlight">
+                                        <td class="field">Penasehat</td>
+                                        @if ($user->penasehat == null)
+                                            <td><span class="text-danger"><i>* tidak ada</i></span></td>
+                                        @else
+                                            <td>{{ $user->penasehat }}</td>
+                                        @endif
+                                    </tr>
+                                    <tr class="divider">
+                                        <td colspan="2"></td>
+                                    </tr>
+                                    <tr class="highlight">
+                                        <td class="field">Pengurus</td>
+                                        @if ($user->pengurus == null)
+                                            <td><span class="text-danger"><i>* tidak ada</i></span></td>
+                                        @else
+                                            <td>{{ $user->pengurus }}</td>
+                                        @endif
+                                    </tr>
+                                    <tr class="divider">
+                                        <td colspan="2"></td>
+                                    </tr>
+                                    <tr class="highlight">
                                         <td class="field">Email</td>
                                         <td>{{ $user->email }}</td>
                                     </tr>
