@@ -391,52 +391,67 @@ function saveFile(urlStore, table) {
     });
 }
 
-
 function Delete(fitur, editUrl, deleteUrl, table) {
     $("body").on("click", ".delete", function () {
         var deleteId = $(this).data("id");
         $("#modelHeadingHps").html("Hapus");
         $("#fitur").html(fitur);
-        $("#ajaxModelHps").modal("show");
+
+        $("#ajaxModelHps").data('id', deleteId).modal("show");
+
         $.get(editUrl + "/" + deleteId + "/edit", function (data) {
             $("#field").html(data.name);
         });
-        $("#hapusBtn").click(function (e) {
-            e.preventDefault();
-            var csrfToken = $('meta[name="csrf-token"]').attr("content");
+    });
 
-            $(this).html(
-                "<span class='spinner-border spinner-border-sm'></span><span class='visually-hidden'><i> menghapus...</i></span>"
-            );
-            $.ajax({
-                type: "DELETE",
-                url: deleteUrl + "/" + deleteId,
-                data: {
-                    _token: csrfToken,
-                },
-                success: function (data) {
-                    if (data.errors) {
-                        $(".alert-danger").html("");
-                        $.each(data.errors, function (key, value) {
-                            $(".alert-danger").show();
-                            $(".alert-danger").append(
-                                "<strong><li>" + value + "</li></strong>"
-                            );
-                            $(".alert-danger").fadeOut(5000);
-                            $("#hapusBtn").html(
-                                "<i class='fa fa-trash'></i>Hapus"
-                            );
-                        });
-                    } else {
-                        if (table) {
-                            table.draw();
-                        }
-                        alertToastr(data.success);
-                        $("#hapusBtn").html("<i class='fa fa-trash'></i>Hapus");
-                        $("#ajaxModelHps").modal("hide");
+    $("#ajaxModelHps").on('hidden.bs.modal', function () {
+        $(this).removeData('id');
+        $("#hapusBtn").html("Hapus").removeAttr("disabled");
+    });
+
+    $("#hapusBtn").click(function (e) {
+        e.preventDefault();
+
+        var deleteId = $("#ajaxModelHps").data('id');
+        if (!deleteId) {
+            return;
+        }
+
+        var csrfToken = $('meta[name="csrf-token"]').attr("content");
+
+        $(this).html(
+            "<span class='spinner-border spinner-border-sm'></span><span class='visually-hidden'><i> menghapus...</i></span>"
+        ).attr("disabled", "disabled");
+
+        $.ajax({
+            type: "DELETE",
+            url: deleteUrl + "/" + deleteId,
+            data: {
+                _token: csrfToken,
+            },
+            success: function (data) {
+                if (data.errors) {
+                    $(".alert-danger").html("");
+                    $.each(data.errors, function (key, value) {
+                        $(".alert-danger").show();
+                        $(".alert-danger").append(
+                            "<strong><li>" + value + "</li></strong>"
+                        );
+                        $(".alert-danger").fadeOut(5000);
+                        $("#hapusBtn").html(
+                            "<i class='fa fa-trash'></i> Hapus"
+                        ).removeAttr("disabled");
+                    });
+                } else {
+                    if (table) {
+                        table.draw();
                     }
-                },
-            });
+                    alertToastr(data.success);
+                    $("#hapusBtn").html("<i class='fa fa-trash'></i> Hapus").removeAttr("disabled");
+                    $("#detailModal").modal("hide");
+                    $("#ajaxModelHps").modal("hide");
+                }
+            },
         });
     });
 }

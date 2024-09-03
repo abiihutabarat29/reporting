@@ -70,15 +70,24 @@ class LaporanController extends Controller
         }
         return view('laporan.data', compact('menu', 'submenu', 'bidang'));
     }
+
     public function lapdetailkec(Request $request)
     {
         if ($request->ajax()) {
+
             $kecamatanId = $request->input('kecamatan_id');
-            if ($kecamatanId !== null) {
-                $data = Laporan::where('kecamatan_id', $kecamatanId)->where('desa_id', null)->latest()->get();
-            } else {
-                $data = [];
+            $date_start = $request->input('date_start');
+            $date_end = $request->input('date_end');
+
+            $query = Laporan::where('kecamatan_id', $kecamatanId)
+                ->where('desa_id', null);
+
+            if ($date_start && $date_end) {
+                $query->whereBetween('date', [$date_start, $date_end]);
             }
+
+            $data = $query->latest()->get();
+
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('name', function ($data) {
@@ -96,30 +105,43 @@ class LaporanController extends Controller
                 ->addColumn('date', function ($data) {
                     return $data->date;
                 })
-                ->addColumn('foto', function ($data) {
+                ->addColumn('action', function ($data) {
+                    $btn = '';
+
                     if ($data->foto) {
-                        $foto = '<a href="' . url('storage/foto-kegiatan/' . $data->foto) . '" class="popup-link" target="blank">
-                        <center><button class="btn btn-success btn-xs">Lihat</button></center>
-                    </a>';
+                        $btn .= '<a href="' . url('storage/foto-kegiatan/' . $data->foto) . '" class="popup-link" target="_blank">
+                                    <button class="btn btn-success btn-xs">Lihat</button>
+                                </a>';
                     } else {
-                        $foto = "assets/img/images.png";
+                        $btn .= '<img src="assets/img/images.png" alt="No Image" class="img-thumbnail" width="50">';
                     }
-                    return $foto;
+
+                    $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $data->id . '" data-original-title="Delete" class="btn btn-danger btn-xs delete">Hapus</a>';
+
+                    return '<center>' . $btn . '</center>';
                 })
-                ->rawColumns(['bidang', 'program', 'kegiatan', 'foto', 'action'])
+                ->rawColumns(['bidang', 'program', 'kegiatan', 'action'])
                 ->make(true);
         }
         return view('ranking.kecamatan');
     }
+
     public function lapdetaildesa(Request $request)
     {
         if ($request->ajax()) {
+
             $desaId = $request->input('desa_id');
-            if ($desaId !== null) {
-                $data = Laporan::where('desa_id', $desaId)->latest()->get();
-            } else {
-                $data = [];
+            $date_start = $request->input('date_start');
+            $date_end = $request->input('date_end');
+
+            $query = Laporan::where('desa_id', $desaId);
+
+            if ($date_start && $date_end) {
+                $query->whereBetween('date', [$date_start, $date_end]);
             }
+
+            $data = $query->latest()->get();
+
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('name', function ($data) {
@@ -137,17 +159,22 @@ class LaporanController extends Controller
                 ->addColumn('date', function ($data) {
                     return $data->date;
                 })
-                ->addColumn('foto', function ($data) {
+                ->addColumn('action', function ($data) {
+                    $btn = '';
+
                     if ($data->foto) {
-                        $foto = '<a href="' . url('storage/foto-kegiatan/' . $data->foto) . '" class="popup-link" target="blank">
-                        <center><button class="btn btn-success btn-xs">Lihat</button></center>
-                    </a>';
+                        $btn .= '<a href="' . url('storage/foto-kegiatan/' . $data->foto) . '" class="popup-link" target="_blank">
+                                    <button class="btn btn-success btn-xs">Lihat</button>
+                                </a>';
                     } else {
-                        $foto = "assets/img/images.png";
+                        $btn .= '<img src="assets/img/images.png" alt="No Image" class="img-thumbnail" width="50">';
                     }
-                    return $foto;
+
+                    $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $data->id . '" data-original-title="Delete" class="btn btn-danger btn-xs delete">Hapus</a>';
+
+                    return '<center>' . $btn . '</center>';
                 })
-                ->rawColumns(['bidang', 'program', 'kegiatan', 'foto', 'action'])
+                ->rawColumns(['bidang', 'program', 'kegiatan', 'action'])
                 ->make(true);
         }
         return view('ranking.desa');
@@ -386,8 +413,8 @@ class LaporanController extends Controller
                     $peringkat = '<center><span class="badge badge-lg ' . $badgeClass . '">' . $icon . ' Ranking : ' . $data->peringkat . '</span></center>';
                     return $peringkat;
                 })
-                ->addColumn('detail', function ($row) {
-                    return '<center><a href="javascript:void(0)" data-id="' . $row->kecamatan_id . '" data-name="' . $row->nama_pkk . '" class="btn btn-primary btn-xs detail">Detail</a></center>';
+                ->addColumn('detail', function ($row) use ($request) {
+                    return '<center><a href="javascript:void(0)" data-id="' . $row->kecamatan_id . '" data-name="' . $row->nama_pkk . '" data-date-start="' . $request->date_start . '" data-date-end="' . $request->date_end . '" class="btn btn-primary btn-xs detail">Detail</a></center>';
                 })
                 ->rawColumns(['pkk', 'jumlah', 'peringkat', 'detail'])
                 ->make(true);
@@ -457,8 +484,8 @@ class LaporanController extends Controller
                     $peringkat = '<center><span class="badge badge-lg ' . $badgeClass . '">' . $icon . ' Ranking : ' . $data->peringkat . '</span></center>';
                     return $peringkat;
                 })
-                ->addColumn('detail', function ($row) {
-                    return '<center><a href="javascript:void(0)" data-id="' . $row->desa_id . '" data-name="' . $row->nama_pkk . '" class="btn btn-primary btn-xs detail">Detail</a></center>';
+                ->addColumn('detail', function ($row) use ($request) {
+                    return '<center><a href="javascript:void(0)" data-id="' . $row->desa_id . '" data-name="' . $row->nama_pkk . '" data-date-start="' . $request->date_start . '" data-date-end="' . $request->date_end . '" class="btn btn-primary btn-xs detail">Detail</a></center>';
                 })
                 ->rawColumns(['pkk', 'jumlah', 'peringkat', 'detail'])
                 ->make(true);

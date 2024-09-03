@@ -40,9 +40,10 @@
             <th style="width:17%">Program Kerja</th>
             <th style="width:15%">Kegiatan</th>
             <th style="width:12%">Tanggal</th>
-            <th class="text-center" style="width:8%">Action</th>
+            <th class="text-center" style="width:15%">Action</th>
         </x-datatableDetail>
     </x-detail>
+    <x-delete></x-delete>
 @endsection
 @section('script')
     <script text="javascript">
@@ -100,6 +101,7 @@
             $('#applyFilter').on('click', function() {
                 myTable.ajax.reload();
             });
+
             $('#resetFilter').on('click', function() {
                 $('input[name="date_start"]').val('');
                 $('input[name="date_end"]').val('');
@@ -107,14 +109,19 @@
             });
 
             var kecamatanTable = null;
+
             $("body").on("click", ".detail", function() {
                 kecamatan_id = $(this).data("id");
+                var dateStart = $(this).data('date-start');
+                var dateEnd = $(this).data('date-end');
                 var pkkName = $(this).data("name");
+
                 $("#detailModal").modal("show");
                 $("#modelHeading").html('Detail Kegiatan' + ' ' + pkkName);
                 if (kecamatanTable) {
                     kecamatanTable.destroy();
                 }
+
                 kecamatanTable = $('#datatableDetail').DataTable({
                     processing: true,
                     serverSide: true,
@@ -125,9 +132,11 @@
                     autoWidth: false,
                     ajax: {
                         url: "{{ route('laporan-kecamatan-detail') }}",
-                        data: function(d) {
-                            d.kecamatan_id = kecamatan_id;
-                        }
+                        data: {
+                            kecamatan_id: kecamatan_id,
+                            date_start: dateStart,
+                            date_end: dateEnd
+                        },
                     },
                     columns: [{
                             data: "DT_RowIndex",
@@ -154,12 +163,13 @@
                             name: "date",
                         },
                         {
-                            data: "foto",
-                            name: "foto",
+                            data: "action",
+                            name: "action",
                         },
                     ],
                 });
             });
+
             $(document).ready(function() {
                 $('.popup-link').magnificPopup({
                     type: 'image',
@@ -168,6 +178,11 @@
                     }
                 });
             });
+
+            var fitur = "Laporan Kegiatan";
+            var editUrl = "{{ route('laporan.index') }}";
+            var deleteUrl = "{{ route('laporan.store') }}";
+            Delete(fitur, editUrl, deleteUrl, myTable, kecamatanTable);
         });
     </script>
 @endsection
