@@ -6,6 +6,7 @@ use App\Models\Bidang;
 use App\Models\Desa;
 use App\Models\Kecamatan;
 use App\Models\Laporan;
+use App\Models\Program;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -329,23 +330,39 @@ class LaporanController extends Controller
 
     public function pdf(Request $request)
     {
-
         $filterBidang = $request->input('filter_bidang');
         $filterProgram = $request->input('filter_program');
 
-        $query = Laporan::with('kecamatan', 'desa', 'bidang', 'program', 'kegiatan', 'user')->where('user_id', Auth::user()->id);
+        $query = Laporan::with('kecamatan', 'desa', 'bidang', 'program', 'kegiatan', 'user')
+            ->where('user_id', Auth::user()->id);
+
+        $bidangName = null;
+        $programName = null;
 
         if (!empty($filterBidang)) {
             $query->where('bidang_id', $filterBidang);
+            $bidangName = Bidang::find($filterBidang)->name ?? 'Semua Bidang';
         }
 
         if (!empty($filterProgram)) {
             $query->where('program_id', $filterProgram);
+            $programName = Program::find($filterProgram)->name ?? 'Semua Program';
         }
 
-        $data = $query->orderBy('id', 'DESC')->get();
-        $pdf = PDF::loadView('laporan.export', ['data' => $data]);
-        $pdfFileName = 'laporan-kegiatan.pdf';
+        $pdfContent = '';
+
+        $query->orderBy('id', 'DESC')->chunk(50, function ($laporanChunk) use (&$pdfContent, $bidangName, $programName) {
+            $chunkHtml = view('laporan.export', [
+                'data' => $laporanChunk,
+                'bidangName' => $bidangName,
+                'programName' => $programName
+            ])->render();
+            $pdfContent .= $chunkHtml;
+        });
+
+        $pdf = PDF::loadHtml($pdfContent)->setPaper('a4', 'landscape');
+
+        $pdfFileName = time() . '_Laporan_Kegiatan.pdf';
         return $pdf->download($pdfFileName);
     }
 

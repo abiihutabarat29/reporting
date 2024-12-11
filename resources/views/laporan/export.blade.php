@@ -11,13 +11,28 @@
         }
 
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        hr {
+            margin: 10px 0;
+        }
+
+        div {
+            margin-bottom: 5px;
+            /* Mengatur jarak antar elemen div */
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 10px;
+            /* Jarak tabel dari elemen sebelumnya */
         }
 
         th,
@@ -36,15 +51,25 @@
         table {
             font-size: 10px;
         }
+
+        .footer {
+            text-align: left;
+            position: fixed;
+            bottom: -50px;
+            left: 0;
+            height: 50px;
+            padding-left: 10px;
+        }
     </style>
+
 </head>
 
 <body>
     <h2 class="text-center">Laporan Kegiatan {{ Auth::user()->profil->nama_pkk }}</h2>
-    <br>
     <hr>
-    <div><small>Waktu Download:</small> {{ now()->locale('id_ID')->translatedFormat('d F Y H:i:s') }}</div>
-    <br>
+    <div>Bidang:{{ $bidangName ?? 'Semua Bidang' }}</div>
+    <div>Program: {{ $programName ?? 'Semua Program' }}</div>
+    <div>Waktu Download: {{ now()->locale('id_ID')->translatedFormat('d F Y H:i:s') }}</div>
     <table>
         <thead>
             <tr class="text-center">
@@ -83,6 +108,9 @@
             @endforeach
         </tbody>
     </table>
+    <div class="footer">
+        <p><i>https://e-reportingpkk.batubarakab.go.id</i></p>
+    </div>
 </body>
 
 </html>
