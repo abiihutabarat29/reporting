@@ -32,7 +32,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
-            margin-bottom: 5px;
+            margin-bottom: 2px;
             /* Jarak tabel dari elemen sebelumnya */
         }
 
@@ -79,29 +79,32 @@
         </thead>
         <tbody>
             @php
-                $no = 1;
+                $currentNo = $no;
             @endphp
-            @foreach ($data as $row)
-                <tr>
-                    <td style="width: 1%" class="text-center">{{ $no++ }}</td>
-                    <td>{{ $row->name }}</td>
-                    <td style="width: 20%">{{ $row->bidang->name }}</td>
-                    <td style="width: 20%">{{ $row->program->name }}</td>
-                    <td style="width: 15%">
-                        <center> {{ \Carbon\Carbon::parse($row->created_at)->translatedFormat('l, d F Y') }}<center>
-                    </td>
-                    <td style="width: 10%">
-                        @if ($row->foto)
-                            <center><img src="{{ public_path('storage/foto-kegiatan/' . $row->foto) }}" alt="Foto"
-                                    width="50"></center>
-                        @else
-                            <center><img src="{{ public_path('assets/img/banner/images.png') }}" alt="Foto"
-                                    width="50"></center>
-                        @endif
 
-                    </td>
-                </tr>
+            @foreach ($dataChunks as $chunk)
+                @foreach ($chunk as $row)
+                    <tr>
+                        <td class="text-center">{{ $currentNo++ }}</td>
+                        <td>{{ $row->name }}</td>
+                        <td>{{ $row->bidang->name }}</td>
+                        <td>{{ $row->program->name }}</td>
+                        <td>{{ \Carbon\Carbon::parse($row->created_at)->translatedFormat('l, d F Y') }}</td>
+                        <td>
+                            @if ($row->foto)
+                                <img src="{{ public_path('storage/foto-kegiatan/' . $row->foto) }}" alt="Foto"
+                                    width="50">
+                            @else
+                                <img src="{{ public_path('assets/img/banner/images.png') }}" alt="Foto"
+                                    width="50">
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
             @endforeach
+            @php
+                $no = $currentNo;
+            @endphp
         </tbody>
     </table>
     <div class="footer">

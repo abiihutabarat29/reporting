@@ -349,25 +349,19 @@ class LaporanController extends Controller
             $programName = Program::find($filterProgram)->name ?? 'Semua Program';
         }
 
-        $pdfContent = '';
-        $no = 1;
+        $dataChunks = $query->orderBy('id', 'DESC')->get()->chunk(50);
 
-        $query->orderBy('id', 'DESC')->chunk(50, function ($laporanChunk) use (&$pdfContent, $bidangName, $programName, &$no) {
-            $chunkHtml = view('laporan.export', [
-                'data' => $laporanChunk,
-                'bidangName' => $bidangName,
-                'programName' => $programName,
-                'no' => $no
-            ])->render();
-
-            $pdfContent .= $chunkHtml;
-
-            $no += count($laporanChunk);
-        });
+        $pdfContent = view('laporan.export', [
+            'dataChunks' => $dataChunks,
+            'bidangName' => $bidangName,
+            'programName' => $programName,
+            'no' => 1
+        ])->render();
 
         $pdf = PDF::loadHtml($pdfContent)->setPaper('a4', 'landscape');
 
         $pdfFileName = time() . '_Laporan_Kegiatan.pdf';
+
         return $pdf->download($pdfFileName);
     }
 
