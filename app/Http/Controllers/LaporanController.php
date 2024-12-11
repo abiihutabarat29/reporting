@@ -350,14 +350,18 @@ class LaporanController extends Controller
         }
 
         $pdfContent = '';
+        $no = 1;
 
-        $query->orderBy('id', 'DESC')->chunk(50, function ($laporanChunk) use (&$pdfContent, $bidangName, $programName) {
+        $query->orderBy('id', 'DESC')->chunk(50, function ($laporanChunk) use (&$pdfContent, $bidangName, $programName, &$no) {
             $chunkHtml = view('laporan.export', [
                 'data' => $laporanChunk,
                 'bidangName' => $bidangName,
-                'programName' => $programName
+                'programName' => $programName,
+                'no' => $no
             ])->render();
+
             $pdfContent .= $chunkHtml;
+            $no += $laporanChunk->count();
         });
 
         $pdf = PDF::loadHtml($pdfContent)->setPaper('a4', 'landscape');

@@ -32,6 +32,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
+            margin-bottom: 5px;
             /* Jarak tabel dari elemen sebelumnya */
         }
 
@@ -45,11 +46,6 @@
         th:nth-child(1),
         td:nth-child(1) {
             width: 10%;
-        }
-
-        /* Mengatur ukuran font */
-        table {
-            font-size: 10px;
         }
 
         .footer {
