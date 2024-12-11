@@ -361,7 +361,8 @@ class LaporanController extends Controller
             ])->render();
 
             $pdfContent .= $chunkHtml;
-            $no += $laporanChunk->count();
+
+            $no += count($laporanChunk);
         });
 
         $pdf = PDF::loadHtml($pdfContent)->setPaper('a4', 'landscape');
