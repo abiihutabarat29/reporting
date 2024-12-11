@@ -63,9 +63,9 @@
 <body>
     <h2 class="text-center">Laporan Kegiatan {{ Auth::user()->profil->nama_pkk }}</h2>
     <hr>
-    <div>Bidang:{{ $bidangName ?? 'Semua Bidang' }}</div>
-    <div>Program: {{ $programName ?? 'Semua Program' }}</div>
-    <div>Waktu Download: {{ now()->locale('id_ID')->translatedFormat('d F Y H:i:s') }}</div>
+    <div>Bidang : {{ $bidangName ?? 'Semua Bidang' }}</div>
+    <div>Program : {{ $programName ?? 'Semua Program' }}</div>
+    <div>Waktu Download : {{ now()->locale('id_ID')->translatedFormat('d F Y H:i:s') }}</div>
     <table>
         <thead>
             <tr class="text-center">
