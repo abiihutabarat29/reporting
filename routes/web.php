@@ -30,7 +30,7 @@ Auth::routes([
     'reset' => false, // Reset Password Routes...
     'verify' => false, // Email Verification Routes...
 ]);
-
+Route::get('reload-captcha', [LoginController::class, 'reload']);
 Route::group(['middleware' => ['auth', 'role:1,2,3']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/kegiatan-kabupaten', [LaporanController::class, 'laporankab'])->name('laporan.kabupaten');

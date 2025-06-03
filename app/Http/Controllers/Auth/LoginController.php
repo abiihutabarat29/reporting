@@ -46,15 +46,14 @@ class LoginController extends Controller
         $validator = Validator::make($request->all(), [
             'email'         => 'required|email',
             'password'      => 'required|string|max:50',
-            'math_captcha'  => 'required|max:4|in:' . $request->input('correct_sum'),
+            'captcha'       => 'required|captcha',
         ], [
             'email.required'         => 'Email harus diisi.',
             'email.email'            => 'Penulisan Email tidak benar.',
             'password.required'      => 'Password harus diisi.',
             'password.max'           => 'Password melebihi batas karakter.',
-            'math_captcha.required'  => 'Jawaban harus diisi.',
-            'math_captcha.max'       => 'Angka melebihi batas karakter.',
-            'math_captcha.in'        => 'Jawaban salah.',
+            'captcha.required'       => 'Captcha harus diisi.',
+            'captcha.captcha'        => 'Kode captcha yang dimasukkan tidak valid.',
         ]);
 
         if ($validator->fails()) {
@@ -84,5 +83,12 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/login');
+    }
+
+    public function reload()
+    {
+        return response()->json([
+            'captcha' => captcha_src('default')
+        ]);
     }
 }

@@ -44,7 +44,7 @@
             <div class="right-content">
                 <div class="login-header">
                     <div class="brand">
-                        <img src="" alt="" width="70"> Administrator
+                        <img src="" alt="" width="50"> Administrator
                         <div class="text-sm">
                             <small>silahkan masukkan akun anda.</small>
                         </div>
@@ -54,49 +54,36 @@
                     </div>
                 </div>
                 <div class="login-content">
-                    @php
-                        use Carbon\Carbon;
-
-                        $a = rand(1, 10);
-                        $b = rand(1, 10);
-                        $sum = $a + $b;
-
-                    @endphp
                     <form method="POST" action="{{ route('login') }}" class="margin-bottom-0">
                         @csrf
-                        <div class="form-group m-b-15">
+                        <div class="form-group">
                             <input type="text" name="email" id="email" type="email"
                                 class="form-control
                                 input-lg"
-                                placeholder="Email Address" />
+                                placeholder="Masukkan email anda" />
                             @if ($errors->has('email'))
                                 <small class="text-danger">{{ $errors->first('email') }}</small>
                             @endif
                         </div>
-                        <div class="form-group m-b-20">
+                        <div class="form-group">
                             <input name="password" class="form-control input-lg" id="password" type="password"
-                                class="form-control input-lg inverse-mode no-border" placeholder="Password" />
+                                class="form-control input-lg inverse-mode no-border"
+                                placeholder="Masukkan password anda" />
                             @if ($errors->has('password'))
                                 <small class="text-danger">{{ $errors->first('password') }}</small>
                             @endif
                         </div>
                         <div class="form-group">
-                            <div class="m-b-20">
-                                <div class="row">
-                                    <div class="col-md-6 m-t-10">
-                                        <label for="math-captcha" class="form-label">Berapa hasil dari
-                                            {{ $a }} +
-                                            {{ $b }} ?</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="number" class="form-control input-lg" id="math-captcha"
-                                            name="math_captcha" placeholder="???">
-                                        <input type="hidden" name="correct_sum" value="{{ $sum }}">
-                                    </div>
-                                </div>
-                            </div>
-                            @if ($errors->has('math_captcha'))
-                                <small class="text-danger">{{ $errors->first('math_captcha') }}</small>
+                            <img class="img-rounded" id="captcha-img" src="{{ captcha_src('default') }}" alt="captcha"
+                                style="height: 40px;">
+                            <button type="button" id="reload-btn" class="btn btn-outline-secondary"
+                                style="height: 40px;">⟳</button>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="captcha" class="form-control input-lg"
+                                placeholder="Masukkan kode captcha">
+                            @if ($errors->has('captcha'))
+                                <small class="text-danger">{{ $errors->first('captcha') }}</small>
                             @endif
                         </div>
                         <div class="login-buttons">
@@ -159,6 +146,14 @@
             passwordInput.addEventListener("input", checkFormValidity);
 
             checkFormValidity();
+        });
+
+        document.getElementById('reload-btn').addEventListener('click', function() {
+            fetch('/reload-captcha')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('captcha-img').src = data.captcha + '?' + Date.now();
+                });
         });
     </script>
 </body>
